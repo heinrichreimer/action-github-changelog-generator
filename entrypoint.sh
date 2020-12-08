@@ -49,11 +49,11 @@ if istrue "$INPUT_UNRELEASEDONLY"; then ARG_UNRELEASEDONLY="--unreleased-only"; 
 if istrue "$INPUT_UNRELEASED"; then ARG_UNRELEASED="--unreleased"; else ARG_ISSUES="--no-unreleased"; fi
 if [ -n "$INPUT_UNRELEASEDLABEL" ]; then ARG_UNRELEASEDLABEL=(--unreleased-label "$INPUT_UNRELEASEDLABEL"); fi
 if istrue "$INPUT_COMPARELINK"; then ARG_COMPARELINK="--compare-link"; else ARG_COMPARELINK="--no-compare-link"; fi
-if [ -n "$INPUT_INCLUDELABELS" ]; then ARG_INCLUDELABELS="--include-labels $INPUT_INCLUDELABELS"; fi
-if [ -n "$INPUT_EXCLUDELABELS" ]; then ARG_EXCLUDELABELS="--exclude-labels $INPUT_EXCLUDELABELS"; fi
-if [ -n "$INPUT_ISSUELINELABELS" ]; then ARG_ISSUELINELABELS="--issue-line-labels $INPUT_ISSUELINELABELS"; fi
-if [ -n "$INPUT_EXCLUDETAGS" ]; then ARG_EXCLUDETAGS="--exclude-tags $INPUT_EXCLUDETAGS"; fi
-if [ -n "$INPUT_EXCLUDETAGSREGEX" ]; then ARG_EXCLUDETAGSREGEX="--exclude-tags-regex $INPUT_EXCLUDETAGSREGEX"; fi
+if [ -n "$INPUT_INCLUDELABELS" ]; then ARG_INCLUDELABELS=(--include-labels "$INPUT_INCLUDELABELS"); fi
+if [ -n "$INPUT_EXCLUDELABELS" ]; then ARG_EXCLUDELABELS=(--exclude-labels "$INPUT_EXCLUDELABELS"); fi
+if [ -n "$INPUT_ISSUELINELABELS" ]; then ARG_ISSUELINELABELS=(--issue-line-labels "$INPUT_ISSUELINELABELS"); fi
+if [ -n "$INPUT_EXCLUDETAGS" ]; then ARG_EXCLUDETAGS=(--exclude-tags "$INPUT_EXCLUDETAGS"); fi
+if [ -n "$INPUT_EXCLUDETAGSREGEX" ]; then ARG_EXCLUDETAGSREGEX=(--exclude-tags-regex "$INPUT_EXCLUDETAGSREGEX"); fi
 if [ -n "$INPUT_SINCETAG" ]; then ARG_SINCETAG="--since-tag $INPUT_SINCETAG"; fi
 if [ -n "$INPUT_DUETAG" ]; then ARG_DUETAG="--due-tag $INPUT_DUETAG"; fi
 if [ -n "$INPUT_MAXISSUES" ]; then ARG_MAXISSUES="--max-issues $INPUT_MAXISSUES"; fi
@@ -69,17 +69,17 @@ if [ -n "$INPUT_CACHELOG" ]; then ARG_CACHELOG="--cache-log $INPUT_CACHELOG"; fi
 if [ -n "$INPUT_SSLCAFILE" ]; then ARG_SSLCAFILE="--ssl-ca-file $INPUT_SSLCAFILE"; fi
 if istrue "$INPUT_VERBOSE"; then ARG_VERBOSE="--verbose"; else ARG_VERBOSE="--no-verbose"; fi
 if [ -n "$INPUT_BREAKINGLABEL" ]; then ARG_BREAKINGLABEL=(--breaking-label "$INPUT_BREAKINGLABEL"); fi
-if [ -n "$INPUT_BREAKINGLABELS" ]; then ARG_BREAKINGLABELS="--breaking-labels $INPUT_BREAKINGLABELS"; fi
+if [ -n "$INPUT_BREAKINGLABELS" ]; then ARG_BREAKINGLABELS=(--breaking-labels "$INPUT_BREAKINGLABELS"); fi
 if [ -n "$INPUT_ENHANCEMENTLABEL" ]; then ARG_ENHANCEMENTLABEL=(--enhancement-label "$INPUT_ENHANCEMENTLABEL"); fi
-if [ -n "$INPUT_ENHANCEMENTLABELS" ]; then ARG_ENHANCEMENTLABELS="--enhancement-labels $INPUT_ENHANCEMENTLABELS"; fi
+if [ -n "$INPUT_ENHANCEMENTLABELS" ]; then ARG_ENHANCEMENTLABELS=(--enhancement-labels "$INPUT_ENHANCEMENTLABELS"); fi
 if [ -n "$INPUT_BUGSLABEL" ]; then ARG_BUGSLABEL=(--bugs-label "$INPUT_BUGSLABEL"); fi
-if [ -n "$INPUT_BUGLABELS" ]; then ARG_BUGLABELS="--bug-labels $INPUT_BUGLABELS"; fi
+if [ -n "$INPUT_BUGLABELS" ]; then ARG_BUGLABELS=(--bug-labels "$INPUT_BUGLABELS"); fi
 if [ -n "$INPUT_DEPRECATEDLABEL" ]; then ARG_DEPRECATEDLABEL=(--deprecated-label "$INPUT_DEPRECATEDLABEL"); fi
-if [ -n "$INPUT_DEPRECATEDLABELS" ]; then ARG_DEPRECATEDLABELS="--deprecated-labels $INPUT_DEPRECATEDLABELS"; fi
+if [ -n "$INPUT_DEPRECATEDLABELS" ]; then ARG_DEPRECATEDLABELS=(--deprecated-labels "$INPUT_DEPRECATEDLABELS"); fi
 if [ -n "$INPUT_REMOVEDLABEL" ]; then ARG_REMOVEDLABEL=(--removed-label "$INPUT_REMOVEDLABEL"); fi
-if [ -n "$INPUT_REMOVEDLABELS" ]; then ARG_REMOVEDLABELS="--removed-labels $INPUT_REMOVEDLABELS"; fi
+if [ -n "$INPUT_REMOVEDLABELS" ]; then ARG_REMOVEDLABELS=(--removed-labels "$INPUT_REMOVEDLABELS"); fi
 if [ -n "$INPUT_SECURITYLABEL" ]; then ARG_SECURITYLABEL=(--security-label "$INPUT_SECURITYLABEL"); fi
-if [ -n "$INPUT_SECURITYLABELS" ]; then ARG_SECURITYLABELS="--security-labels $INPUT_SECURITYLABELS"; fi
+if [ -n "$INPUT_SECURITYLABELS" ]; then ARG_SECURITYLABELS=(--security-labels "$INPUT_SECURITYLABELS"); fi
 if [ -n "$INPUT_ISSUESLABEL" ]; then ARG_ISSUESLABEL=(--issues-label "$INPUT_ISSUESLABEL"); fi
 if [ -n "$INPUT_PRLABEL" ]; then ARG_PRLABEL=(--pr-label "$INPUT_PRLABEL"); fi
 
@@ -107,11 +107,11 @@ github_changelog_generator \
   $ARG_UNRELEASED \
   "${ARG_UNRELEASEDLABEL[@]}" \
   $ARG_COMPARELINK \
-  $ARG_INCLUDELABELS \
-  $ARG_EXCLUDELABELS \
-  $ARG_ISSUELINELABELS \
-  $ARG_EXCLUDETAGS \
-  $ARG_EXCLUDETAGSREGEX \
+  "${ARG_INCLUDELABELS[@]}" \
+  "${ARG_EXCLUDELABELS[@]}" \
+  "${ARG_ISSUELINELABELS[@]}" \
+  "${ARG_EXCLUDETAGS[@]}" \
+  "${ARG_EXCLUDETAGSREGEX[@]}" \
   $ARG_SINCETAG \
   $ARG_DUETAG \
   $ARG_MAXISSUES \
@@ -127,17 +127,17 @@ github_changelog_generator \
   $ARG_SSLCAFILE \
   $ARG_VERBOSE \
   "${ARG_BREAKINGLABEL[@]}" \
-  $ARG_BREAKINGLABELS \
+  "${ARG_BREAKINGLABELS[@]}" \
   "${ARG_ENHANCEMENTLABEL[@]}" \
-  $ARG_ENHANCEMENTLABELS \
+  "${ARG_ENHANCEMENTLABELS[@]}" \
   "${ARG_BUGSLABEL[@]}" \
-  $ARG_BUGLABELS \
+  "${ARG_BUGLABELS[@]}" \
   "${ARG_DEPRECATEDLABEL[@]}" \
-  $ARG_DEPRECATEDLABELS \
+  "${ARG_DEPRECATEDLABELS[@]}" \
   "${ARG_REMOVEDLABEL[@]}" \
-  $ARG_REMOVEDLABELS \
+  "${ARG_REMOVEDLABELS[@]}" \
   "${ARG_SECURITYLABEL[@]}" \
-  $ARG_SECURITYLABELS \
+  "${ARG_SECURITYLABELS[@]}" \
   "${ARG_ISSUESLABEL[@]}" \
   "${ARG_PRLABEL[@]}"
 
