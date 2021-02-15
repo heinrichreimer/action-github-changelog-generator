@@ -24,7 +24,7 @@ if [ -z "$INPUT_PROJECT" ]; then INPUT_PROJECT=$(echo "$INPUT_REPO" | cut -d / -
 # Only show last tag.
 if istrue "$INPUT_ONLYLASTTAG"; then
   INPUT_DUETAG=""
-  INPUT_SINCETAG=$(git fetch --tags | git describe --always --abbrev=0 --tags $(git rev-list --tags --skip=1 --max-count=1))
+  INPUT_SINCETAG=$(git fetch --tags > null ; git describe --always --abbrev=0 --tags $(git rev-list --tags --skip=1 --max-count=1))
 fi
 
 # Build arguments.
